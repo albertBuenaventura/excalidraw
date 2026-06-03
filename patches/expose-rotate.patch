@@ -1,0 +1,324 @@
+diff --git a/packages/excalidraw/components/App.tsx b/packages/excalidraw/components/App.tsx
+index e3ff9119..0194a0ed 100644
+--- a/packages/excalidraw/components/App.tsx
++++ b/packages/excalidraw/components/App.tsx
+@@ -115,6 +115,7 @@ import {
+   getObservedAppState,
+   getCommonBounds,
+   getElementAbsoluteCoords,
++  updateElbowArrowPoints,
+   bindOrUnbindBindingElements,
+   fixBindingsAfterDeletion,
+   getHoveredElementForBinding,
+@@ -770,6 +771,10 @@ class App extends React.Component<AppProps, AppState> {
+       setActiveTool: this.setActiveTool,
+       setCursor: this.setCursor,
+       resetCursor: this.resetCursor,
++      setActiveLinearElement: this.setActiveLinearElement,
++      refreshTextElementDimensions: this.refreshTextElementDimensions,
++      rerouteElbowArrow: this.rerouteElbowArrow,
++      rotateSelectedElements: this.rotateSelectedElements,
+       getEditorInterface: () => this.editorInterface,
+       updateFrameRendering: this.updateFrameRendering,
+       toggleSidebar: this.toggleSidebar,
+@@ -2394,6 +2399,9 @@ class App extends React.Component<AppProps, AppState> {
+                             renderScrollbars={
+                               this.props.renderScrollbars === true
+                             }
++                            hideDefaultRotateHandle={
++                              this.props.hideDefaultRotateHandle === true
++                            }
+                             editorInterface={this.editorInterface}
+                             renderInteractiveSceneCallback={
+                               this.renderInteractiveSceneCallback
+@@ -4529,6 +4537,154 @@ class App extends React.Component<AppProps, AppState> {
+     },
+   );
+ 
++  public rotateSelectedElements: ExcalidrawImperativeAPI["rotateSelectedElements"] =
++    (angleDelta, opts = {}) => {
++      const selectedElements = this.scene.getSelectedElements(this.state);
++
++      if (!selectedElements.length) {
++        return false;
++      }
++
++      const elementsMap = this.scene.getNonDeletedElementsMap();
++      const [x1, y1, x2, y2] =
++        opts.center || selectedElements.length > 1
++          ? getCommonBounds(selectedElements, elementsMap)
++          : getElementAbsoluteCoords(selectedElements[0], elementsMap);
++      const centerX = opts.center?.x ?? (x1 + x2) / 2;
++      const centerY = opts.center?.y ?? (y1 + y2) / 2;
++      const targetAngle =
++        selectedElements.length === 1
++          ? selectedElements[0].angle + angleDelta
++          : angleDelta;
++      const pointerAngle = targetAngle - (5 * Math.PI) / 2;
++      const pointerX = centerX + Math.cos(pointerAngle) * 100;
++      const pointerY = centerY + Math.sin(pointerAngle) * 100;
++
++      const rotated = transformElements(
++        new Map(selectedElements.map((element) => [element.id, element])),
++        "rotation",
++        selectedElements,
++        this.scene,
++        opts.shouldRotateWithDiscreteAngle ?? false,
++        false,
++        false,
++        pointerX,
++        pointerY,
++        centerX,
++        centerY,
++      );
++
++      if (rotated) {
++        this.scene.triggerUpdate();
++      }
++
++      return rotated;
++    };
++
++  public setActiveLinearElement: ExcalidrawImperativeAPI["setActiveLinearElement"] =
++    (elementId, opts = {}) => {
++      if (elementId === null) {
++        this.setState({ selectedLinearElement: null });
++        return true;
++      }
++
++      const element = this.scene.getNonDeletedElementsMap().get(elementId);
++      if (!element || !isLinearElement(element)) {
++        return false;
++      }
++
++      const isEditing = opts.isEditing ?? false;
++      const pointIndex = Math.max(
++        0,
++        Math.min(
++          opts.pointIndex ?? element.points.length - 1,
++          element.points.length - 1,
++        ),
++      );
++      const baseLinearElementEditor = new LinearElementEditor(
++        element,
++        this.scene.getNonDeletedElementsMap(),
++        isEditing,
++      );
++
++      this.setState((prevState) => ({
++        selectedElementIds: makeNextSelectedElementIds(
++          { [element.id]: true },
++          prevState,
++        ),
++        selectedLinearElement: {
++          ...baseLinearElementEditor,
++          selectedPointsIndices: isEditing ? [pointIndex] : null,
++          hoverPointIndex: opts.hoverPointIndex ?? -1,
++          initialState: {
++            ...baseLinearElementEditor.initialState,
++            lastClickedPoint: isEditing ? pointIndex : -1,
++          },
++        },
++      }));
++
++      return true;
++    };
++
++  public refreshTextElementDimensions: ExcalidrawImperativeAPI["refreshTextElementDimensions"] =
++    (elementIds) => {
++      const elementIdSet =
++        elementIds === undefined
++          ? null
++          : new Set(Array.isArray(elementIds) ? elementIds : [elementIds]);
++      const elements = this.scene.getNonDeletedElements();
++      let didRefresh = false;
++
++      for (const element of elements) {
++        if (!isTextElement(element)) {
++          continue;
++        }
++        if (elementIdSet && !elementIdSet.has(element.id)) {
++          continue;
++        }
++
++        redrawTextBoundingBox(
++          element,
++          getContainerElement(element, this.scene.getNonDeletedElementsMap()),
++          this.scene,
++        );
++        didRefresh = true;
++      }
++
++      if (didRefresh) {
++        this.scene.triggerUpdate();
++      }
++
++      return didRefresh;
++    };
++
++  public rerouteElbowArrow: ExcalidrawImperativeAPI["rerouteElbowArrow"] = (
++    elementId,
++  ) => {
++    const element = this.scene.getNonDeletedElementsMap().get(elementId);
++    if (!element || !isElbowArrow(element)) {
++      return false;
++    }
++
++    this.scene.mutateElement(
++      element,
++      updateElbowArrowPoints(
++        element,
++        this.scene.getNonDeletedElementsMap(),
++        {
++          points: [element.points[0], element.points[element.points.length - 1]],
++          fixedSegments: [],
++        },
++        {
++          isBindingEnabled: this.state.isBindingEnabled,
++          isMidpointSnappingEnabled: this.state.isMidpointSnappingEnabled,
++        },
++      ),
++    );
++    this.scene.triggerUpdate();
++    return true;
++  };
++
+   private addMissingFiles = (
+     files: BinaryFiles | BinaryFileData[],
+     replace = false,
+diff --git a/packages/excalidraw/components/canvases/InteractiveCanvas.tsx b/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
+index f24e80d6..936e5655 100644
+--- a/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
++++ b/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
+@@ -44,6 +44,7 @@ type InteractiveCanvasProps = {
+   scale: number;
+   appState: InteractiveCanvasAppState;
+   renderScrollbars: boolean;
++  hideDefaultRotateHandle: boolean;
+   editorInterface: EditorInterface;
+   app: AppClassProperties;
+   renderInteractiveSceneCallback: (
+@@ -159,6 +160,7 @@ const InteractiveCanvas = (props: InteractiveCanvasProps) => {
+         remotePointerUserStates,
+         selectionColor,
+         renderScrollbars: props.renderScrollbars,
++        hideDefaultRotateHandle: props.hideDefaultRotateHandle,
+         // NOTE not memoized on so we don't rerender on cursor move
+         lastViewportPosition: props.app.lastViewportPosition,
+       },
+@@ -287,7 +289,8 @@ const areEqual = (
+     prevProps.elementsMap !== nextProps.elementsMap ||
+     prevProps.visibleElements !== nextProps.visibleElements ||
+     prevProps.selectedElements !== nextProps.selectedElements ||
+-    prevProps.renderScrollbars !== nextProps.renderScrollbars
++    prevProps.renderScrollbars !== nextProps.renderScrollbars ||
++    prevProps.hideDefaultRotateHandle !== nextProps.hideDefaultRotateHandle
+   ) {
+     return false;
+   }
+diff --git a/packages/excalidraw/index.tsx b/packages/excalidraw/index.tsx
+index a680912b..dfed2055 100644
+--- a/packages/excalidraw/index.tsx
++++ b/packages/excalidraw/index.tsx
+@@ -103,6 +103,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
+     aiEnabled,
+     showDeprecatedFonts,
+     renderScrollbars,
++    hideDefaultRotateHandle,
+     imageOptions,
+   } = props;
+ 
+@@ -221,6 +222,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
+           aiEnabled={aiEnabled !== false}
+           showDeprecatedFonts={showDeprecatedFonts}
+           renderScrollbars={renderScrollbars}
++          hideDefaultRotateHandle={hideDefaultRotateHandle}
+           imageOptions={normalizedImageOptions}
+         >
+           {children}
+diff --git a/packages/excalidraw/renderer/interactiveScene.ts b/packages/excalidraw/renderer/interactiveScene.ts
+index a324a3ac..c8ad169a 100644
+--- a/packages/excalidraw/renderer/interactiveScene.ts
++++ b/packages/excalidraw/renderer/interactiveScene.ts
+@@ -1901,7 +1901,10 @@ const _renderInteractiveScene = ({
+         appState.zoom,
+         elementsMap,
+         "mouse", // when we render we don't know which pointer type so use mouse,
+-        getOmitSidesForEditorInterface(editorInterface),
++        {
++          ...getOmitSidesForEditorInterface(editorInterface),
++          rotation: renderConfig.hideDefaultRotateHandle,
++        },
+       );
+       if (
+         !appState.viewModeEnabled &&
+@@ -1964,12 +1967,19 @@ const _renderInteractiveScene = ({
+         0 as Radians,
+         appState.zoom,
+         "mouse",
+-        isFrameSelected
+-          ? {
+-              ...getOmitSidesForEditorInterface(editorInterface),
+-              rotation: true,
+-            }
+-          : getOmitSidesForEditorInterface(editorInterface),
++        {
++          ...(isFrameSelected
++            ? {
++                ...getOmitSidesForEditorInterface(editorInterface),
++                rotation: true,
++              }
++            : getOmitSidesForEditorInterface(editorInterface)),
++          rotation:
++            renderConfig.hideDefaultRotateHandle ||
++            (isFrameSelected
++              ? true
++              : getOmitSidesForEditorInterface(editorInterface).rotation),
++        },
+       );
+       if (selectedElements.some((element) => !element.locked)) {
+         renderTransformHandles(
+diff --git a/packages/excalidraw/scene/types.ts b/packages/excalidraw/scene/types.ts
+index ed28327a..41977b7b 100644
+--- a/packages/excalidraw/scene/types.ts
++++ b/packages/excalidraw/scene/types.ts
+@@ -70,6 +70,7 @@ export type InteractiveCanvasRenderConfig = {
+   lastViewportPosition: { x: number; y: number };
+   // extra options passed to the renderer
+   // ---------------------------------------------------------------------------
++  hideDefaultRotateHandle?: boolean;
+   renderScrollbars?: boolean;
+ };
+ 
+diff --git a/packages/excalidraw/types.ts b/packages/excalidraw/types.ts
+index 946d822e..214348cb 100644
+--- a/packages/excalidraw/types.ts
++++ b/packages/excalidraw/types.ts
+@@ -684,6 +684,7 @@ export interface ExcalidrawProps {
+   ) => JSX.Element | null;
+   aiEnabled?: boolean;
+   showDeprecatedFonts?: boolean;
++  hideDefaultRotateHandle?: boolean;
+   renderScrollbars?: boolean;
+   /**
+    * Called before exporting to a file.
+@@ -970,6 +971,19 @@ export interface ExcalidrawImperativeAPI {
+   setActiveTool: InstanceType<typeof App>["setActiveTool"];
+   setCursor: InstanceType<typeof App>["setCursor"];
+   resetCursor: InstanceType<typeof App>["resetCursor"];
++  rotateSelectedElements: (
++    angleDelta: Radians,
++    opts?: {
++      center?: { x: number; y: number };
++      shouldRotateWithDiscreteAngle?: boolean;
++    },
++  ) => boolean;
++  setActiveLinearElement: (
++    elementId: string | null,
++    opts?: { pointIndex?: number; hoverPointIndex?: number; isEditing?: boolean },
++  ) => boolean;
++  refreshTextElementDimensions: (elementIds?: string | string[]) => boolean;
++  rerouteElbowArrow: (elementId: string) => boolean;
+   toggleSidebar: InstanceType<typeof App>["toggleSidebar"];
+   getEditorInterface: () => EditorInterface;
+   /**

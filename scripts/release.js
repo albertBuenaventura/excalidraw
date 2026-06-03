@@ -175,6 +175,9 @@ const buildPackages = () => {
   console.info("Running yarn install...");
   execSync(`yarn --frozen-lockfile`, { stdio: "inherit" });
 
+  console.info("Applying local patches...");
+  execSync(`node ./scripts/applyPatch.js`, { stdio: "inherit" });
+
   console.info("Removing existing build artifacts...");
   execSync(`yarn rm:build`, { stdio: "inherit" });
 
