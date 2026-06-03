@@ -15,7 +15,7 @@ import { API } from "@albertBuenaventura/excalidraw/tests/helpers/api";
 import {
   generateKeyBetween,
   validateOrderKey,
-} from "@excalidraw/fractional-indexing";
+} from "@albertBuenaventura/fractional-indexing";
 
 import type {
   ElementsMap,

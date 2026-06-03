@@ -3,7 +3,7 @@ import { arrayToMap } from "@albertBuenaventura/common";
 import {
   validateOrderKey,
   generateNKeysBetween,
-} from "@excalidraw/fractional-indexing";
+} from "@albertBuenaventura/fractional-indexing";
 
 import { mutateElement, newElementWith } from "./mutateElement";
 import { getBoundTextElement } from "./textElement";

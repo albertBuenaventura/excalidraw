@@ -21,8 +21,8 @@
       "@albertBuenaventura/math/*": ["./math/src/*"],
       "@albertBuenaventura/utils": ["./utils/src/index.ts"],
       "@albertBuenaventura/utils/*": ["./utils/src/*"],
-      "@excalidraw/fractional-indexing": ["./fractional-indexing/src/index.ts"],
-      "@excalidraw/fractional-indexing/*": ["./fractional-indexing/src/*"]
+      "@albertBuenaventura/fractional-indexing": ["./fractional-indexing/src/index.ts"],
+      "@albertBuenaventura/fractional-indexing/*": ["./fractional-indexing/src/*"]
     }
   }
 }

@@ -237,7 +237,7 @@ index a680912b..dfed2055 100644
          >
            {children}
 diff --git a/packages/excalidraw/renderer/interactiveScene.ts b/packages/excalidraw/renderer/interactiveScene.ts
-index a324a3ac..c8ad169a 100644
+index a324a3ac..92560cea 100644
 --- a/packages/excalidraw/renderer/interactiveScene.ts
 +++ b/packages/excalidraw/renderer/interactiveScene.ts
 @@ -1901,7 +1901,10 @@ const _renderInteractiveScene = ({
@@ -252,7 +252,15 @@ index a324a3ac..c8ad169a 100644
        );
        if (
          !appState.viewModeEnabled &&
-@@ -1964,12 +1967,19 @@ const _renderInteractiveScene = ({
+@@ -1959,17 +1962,27 @@ const _renderInteractiveScene = ({
+       );
+       context.lineWidth = lineWidth;
+       context.setLineDash(initialLineDash);
++      const omitSidesForEditorInterface = getOmitSidesForEditorInterface(
++        editorInterface,
++      ) as { rotation?: boolean };
+       const transformHandles = getTransformHandlesFromCoords(
+         [x1, y1, x2, y2, (x1 + x2) / 2, (y1 + y2) / 2],
          0 as Radians,
          appState.zoom,
          "mouse",
@@ -265,15 +273,15 @@ index a324a3ac..c8ad169a 100644
 +        {
 +          ...(isFrameSelected
 +            ? {
-+                ...getOmitSidesForEditorInterface(editorInterface),
++                ...omitSidesForEditorInterface,
 +                rotation: true,
 +              }
-+            : getOmitSidesForEditorInterface(editorInterface)),
++            : omitSidesForEditorInterface),
 +          rotation:
 +            renderConfig.hideDefaultRotateHandle ||
 +            (isFrameSelected
 +              ? true
-+              : getOmitSidesForEditorInterface(editorInterface).rotation),
++              : omitSidesForEditorInterface.rotation),
 +        },
        );
        if (selectedElements.some((element) => !element.locked)) {
@@ -291,9 +299,18 @@ index ed28327a..41977b7b 100644
  };
  
 diff --git a/packages/excalidraw/types.ts b/packages/excalidraw/types.ts
-index 946d822e..214348cb 100644
+index 946d822e..a93a8530 100644
 --- a/packages/excalidraw/types.ts
 +++ b/packages/excalidraw/types.ts
+@@ -47,7 +47,7 @@ import type {
+   DurableIncrement,
+   EphemeralIncrement,
+ } from "@albertBuenaventura/element";
+-import type { GlobalPoint } from "@albertBuenaventura/math";
++import type { GlobalPoint, Radians } from "@albertBuenaventura/math";
+ 
+ import type { Action } from "./actions/types";
+ import type { Spreadsheet } from "./charts";
 @@ -684,6 +684,7 @@ export interface ExcalidrawProps {
    ) => JSX.Element | null;
    aiEnabled?: boolean;
