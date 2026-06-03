@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { EVENT, KEYS } from "@excalidraw/common";
+import { EVENT, KEYS } from "@albertBuenaventura/common";
 
 import Spinner from "../Spinner";
 

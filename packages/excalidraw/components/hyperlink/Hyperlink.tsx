@@ -1,4 +1,4 @@
-import { pointFrom, type GlobalPoint } from "@excalidraw/math";
+import { pointFrom, type GlobalPoint } from "@albertBuenaventura/math";
 import clsx from "clsx";
 import {
   useCallback,
@@ -8,15 +8,15 @@ import {
   useState,
 } from "react";
 
-import { EVENT, HYPERLINK_TOOLTIP_DELAY, KEYS } from "@excalidraw/common";
+import { EVENT, HYPERLINK_TOOLTIP_DELAY, KEYS } from "@albertBuenaventura/common";
 
-import { getElementAbsoluteCoords } from "@excalidraw/element";
+import { getElementAbsoluteCoords } from "@albertBuenaventura/element";
 
-import { hitElementBoundingBox } from "@excalidraw/element";
+import { hitElementBoundingBox } from "@albertBuenaventura/element";
 
-import { isElementLink } from "@excalidraw/element";
+import { isElementLink } from "@albertBuenaventura/element";
 
-import { getEmbedLink, embeddableURLValidator } from "@excalidraw/element";
+import { getEmbedLink, embeddableURLValidator } from "@albertBuenaventura/element";
 
 import {
   sceneCoordsToViewportCoords,
@@ -24,17 +24,17 @@ import {
   wrapEvent,
   isLocalLink,
   normalizeLink,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import { isEmbeddableElement } from "@excalidraw/element";
+import { isEmbeddableElement } from "@albertBuenaventura/element";
 
-import type { Scene } from "@excalidraw/element";
+import type { Scene } from "@albertBuenaventura/element";
 
 import type {
   ElementsMap,
   ExcalidrawEmbeddableElement,
   NonDeletedExcalidrawElement,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import { trackEvent } from "../../analytics";
 import { getTooltipDiv, updateTooltipPosition } from "../../components/Tooltip";

@@ -1,16 +1,16 @@
-import { exportToCanvas, exportToSvg } from "@excalidraw/utils";
+import { exportToCanvas, exportToSvg } from "@albertBuenaventura/utils";
 
 import {
   applyDarkModeFilter,
   FONT_FAMILY,
   FRAME_STYLE,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
 import type {
   ExcalidrawTextElement,
   FractionalIndex,
   NonDeletedExcalidrawElement,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import { prepareElementsForExport } from "../../data";
 import * as exportUtils from "../../scene/export";

@@ -1,13 +1,13 @@
-import { getFontString } from "@excalidraw/common";
+import { getFontString } from "@albertBuenaventura/common";
 
-import { isExcalidrawElement, newElementWith } from "@excalidraw/element";
-import { measureText } from "@excalidraw/element";
+import { isExcalidrawElement, newElementWith } from "@albertBuenaventura/element";
+import { measureText } from "@albertBuenaventura/element";
 
-import { isTextElement } from "@excalidraw/element";
+import { isTextElement } from "@albertBuenaventura/element";
 
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
-import type { ExcalidrawElement } from "@excalidraw/element/types";
+import type { ExcalidrawElement } from "@albertBuenaventura/element/types";
 
 import { getSelectedElements } from "../scene";
 

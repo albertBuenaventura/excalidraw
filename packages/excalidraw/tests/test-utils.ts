@@ -9,13 +9,13 @@ import {
 } from "@testing-library/react";
 import ansi from "ansicolor";
 
-import { ORIG_ID, arrayToMap } from "@excalidraw/common";
+import { ORIG_ID, arrayToMap } from "@albertBuenaventura/common";
 
-import { getSelectedElements } from "@excalidraw/element";
+import { getSelectedElements } from "@albertBuenaventura/element";
 
-import type { ExcalidrawElement } from "@excalidraw/element/types";
+import type { ExcalidrawElement } from "@albertBuenaventura/element/types";
 
-import type { AllPossibleKeys } from "@excalidraw/common/utility-types";
+import type { AllPossibleKeys } from "@albertBuenaventura/common/utility-types";
 
 import { STORAGE_KEYS } from "../../../excalidraw-app/app_constants";
 

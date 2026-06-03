@@ -1,4 +1,4 @@
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
 import { register } from "./register";
 

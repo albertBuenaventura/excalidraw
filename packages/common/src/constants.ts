@@ -1,8 +1,8 @@
 import type {
   ExcalidrawElement,
   FontFamilyValues,
-} from "@excalidraw/element/types";
-import type { AppProps, AppState } from "@excalidraw/excalidraw/types";
+} from "@albertBuenaventura/element/types";
+import type { AppProps, AppState } from "@albertBuenaventura/excalidraw/types";
 
 import { COLOR_PALETTE } from "./colors";
 

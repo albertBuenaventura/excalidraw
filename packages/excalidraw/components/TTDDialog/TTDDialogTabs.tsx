@@ -1,7 +1,7 @@
 import { Tabs as RadixTabs } from "radix-ui";
 import { useRef } from "react";
 
-import { isMemberOf } from "@excalidraw/common";
+import { isMemberOf } from "@albertBuenaventura/common";
 
 import { useExcalidrawSetAppState } from "../App";
 

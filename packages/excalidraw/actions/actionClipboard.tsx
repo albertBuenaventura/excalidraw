@@ -1,9 +1,9 @@
-import { isTextElement } from "@excalidraw/element";
-import { getTextFromElements } from "@excalidraw/element";
+import { isTextElement } from "@albertBuenaventura/element";
+import { getTextFromElements } from "@albertBuenaventura/element";
 
-import { CODES, KEYS, isFirefox } from "@excalidraw/common";
+import { CODES, KEYS, isFirefox } from "@albertBuenaventura/common";
 
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
 import {
   copyTextToSystemClipboard,

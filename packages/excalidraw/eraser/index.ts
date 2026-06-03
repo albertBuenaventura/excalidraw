@@ -1,4 +1,4 @@
-import { arrayToMap, easeOut, THEME } from "@excalidraw/common";
+import { arrayToMap, easeOut, THEME } from "@albertBuenaventura/common";
 
 import {
   computeBoundTextPosition,
@@ -13,25 +13,25 @@ import {
   isFreeDrawElement,
   isLineElement,
   isPointInElement,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 import {
   lineSegment,
   lineSegmentsDistance,
   pointFrom,
   polygon,
   polygonIncludesPointNonZero,
-} from "@excalidraw/math";
+} from "@albertBuenaventura/math";
 
-import { getElementsInGroup } from "@excalidraw/element";
+import { getElementsInGroup } from "@albertBuenaventura/element";
 
-import { shouldTestInside } from "@excalidraw/element";
-import { hasBoundTextElement, isBoundToContainer } from "@excalidraw/element";
-import { getBoundTextElementId } from "@excalidraw/element";
+import { shouldTestInside } from "@albertBuenaventura/element";
+import { hasBoundTextElement, isBoundToContainer } from "@albertBuenaventura/element";
+import { getBoundTextElementId } from "@albertBuenaventura/element";
 
-import type { Bounds } from "@excalidraw/common";
+import type { Bounds } from "@albertBuenaventura/common";
 
-import type { GlobalPoint, LineSegment } from "@excalidraw/math/types";
-import type { ElementsMap, ExcalidrawElement } from "@excalidraw/element/types";
+import type { GlobalPoint, LineSegment } from "@albertBuenaventura/math/types";
+import type { ElementsMap, ExcalidrawElement } from "@albertBuenaventura/element/types";
 
 import { AnimatedTrail } from "../animatedTrail";
 

@@ -4,11 +4,11 @@ import type {
   throttleRAF,
   MIME_TYPES,
   EditorInterface,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import type { LinearElementEditor } from "@excalidraw/element";
+import type { LinearElementEditor } from "@albertBuenaventura/element";
 
-import type { MaybeTransformHandleType } from "@excalidraw/element";
+import type { MaybeTransformHandleType } from "@albertBuenaventura/element";
 
 import type {
   PointerType,
@@ -33,21 +33,21 @@ import type {
   ExcalidrawNonSelectionElement,
   BindMode,
   ExcalidrawTextElement,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import type {
   Merge,
   MaybePromise,
   ValueOf,
   MakeBrand,
-} from "@excalidraw/common/utility-types";
+} from "@albertBuenaventura/common/utility-types";
 
 import type {
   CaptureUpdateActionType,
   DurableIncrement,
   EphemeralIncrement,
-} from "@excalidraw/element";
-import type { GlobalPoint } from "@excalidraw/math";
+} from "@albertBuenaventura/element";
+import type { GlobalPoint } from "@albertBuenaventura/math";
 
 import type { Action } from "./actions/types";
 import type { Spreadsheet } from "./charts";

@@ -7,11 +7,11 @@ import {
   COLOR_PALETTE,
   isColorDark,
   isWritableElement,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import type { ColorTuple, ColorPaletteCustom } from "@excalidraw/common";
+import type { ColorTuple, ColorPaletteCustom } from "@albertBuenaventura/common";
 
-import type { ExcalidrawElement } from "@excalidraw/element/types";
+import type { ExcalidrawElement } from "@albertBuenaventura/element/types";
 
 import { useAtom } from "../../editor-jotai";
 import { t } from "../../i18n";

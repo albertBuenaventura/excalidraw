@@ -1,9 +1,9 @@
 import React from "react";
 import { vi } from "vitest";
 
-import { KEYS, reseed } from "@excalidraw/common";
+import { KEYS, reseed } from "@albertBuenaventura/common";
 
-import type { ExcalidrawLinearElement } from "@excalidraw/element/types";
+import type { ExcalidrawLinearElement } from "@albertBuenaventura/element/types";
 
 import { Excalidraw } from "../index";
 import * as InteractiveScene from "../renderer/interactiveScene";

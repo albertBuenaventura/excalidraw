@@ -11,7 +11,7 @@ import {
   DEFAULT_IMAGE_OPTIONS,
   DEFAULT_UI_OPTIONS,
   isShallowEqual,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
 import App, {
   ExcalidrawAPIContext,
@@ -310,10 +310,10 @@ export {
   hashElementsVersion,
   hashString,
   getNonDeletedElements,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-export { getTextFromElements } from "@excalidraw/element";
-export { isInvisiblySmallElement } from "@excalidraw/element";
+export { getTextFromElements } from "@albertBuenaventura/element";
+export { isInvisiblySmallElement } from "@albertBuenaventura/element";
 
 export { defaultLang, useI18n, languages } from "./i18n";
 export {
@@ -330,7 +330,7 @@ export {
   exportToBlob,
   exportToSvg,
   exportToClipboard,
-} from "@excalidraw/utils/export";
+} from "@albertBuenaventura/utils/export";
 
 export { serializeAsJSON, serializeLibraryAsJSON } from "./data/json";
 export {
@@ -339,7 +339,7 @@ export {
   loadLibraryFromBlob,
 } from "./data/blob";
 export { mergeLibraryItems, getLibraryItemsHash } from "./data/library";
-export { isLinearElement } from "@excalidraw/element";
+export { isLinearElement } from "@albertBuenaventura/element";
 
 export {
   FONT_FAMILY,
@@ -353,15 +353,15 @@ export {
   viewportCoordsToSceneCoords,
   getFormFactor,
   throttleRAF,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
 export {
   mutateElement,
   newElementWith,
   bumpVersion,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-export { CaptureUpdateAction } from "@excalidraw/element";
+export { CaptureUpdateAction } from "@albertBuenaventura/element";
 
 export { parseLibraryTokensFromUrl, useHandleLibrary } from "./data/library";
 
@@ -396,21 +396,21 @@ export {
   getCommonBounds,
   getVisibleSceneBounds,
   convertToExcalidrawElements,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
 export {
   elementsOverlappingBBox,
   isElementInsideBBox,
   elementPartiallyOverlapsWithOrContainsBBox,
-} from "@excalidraw/utils/withinBounds";
+} from "@albertBuenaventura/utils/withinBounds";
 
 export { DiagramToCodePlugin } from "./components/DiagramToCodePlugin/DiagramToCodePlugin";
 export { getDataURL } from "./data/blob";
-export { isElementLink } from "@excalidraw/element";
+export { isElementLink } from "@albertBuenaventura/element";
 
 export { Fonts } from "./fonts/Fonts";
 
-export { setCustomTextMetricsProvider } from "@excalidraw/element";
+export { setCustomTextMetricsProvider } from "@albertBuenaventura/element";
 
 export { CommandPalette } from "./components/CommandPalette/CommandPalette";
 

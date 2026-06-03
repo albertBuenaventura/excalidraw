@@ -3,22 +3,22 @@ import {
   KEYS,
   MOBILE_ACTION_BUTTON_BG,
   arrayToMap,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import { getNonDeletedElements } from "@excalidraw/element";
+import { getNonDeletedElements } from "@albertBuenaventura/element";
 
-import { LinearElementEditor } from "@excalidraw/element";
+import { LinearElementEditor } from "@albertBuenaventura/element";
 
 import {
   getSelectedElements,
   getSelectionStateForElements,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { syncMovedIndices } from "@excalidraw/element";
+import { syncMovedIndices } from "@albertBuenaventura/element";
 
-import { duplicateElements } from "@excalidraw/element";
+import { duplicateElements } from "@albertBuenaventura/element";
 
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
 import { ToolButton } from "../components/ToolButton";
 import { DuplicateIcon } from "../components/icons";

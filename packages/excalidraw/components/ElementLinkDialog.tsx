@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { normalizeLink, KEYS } from "@excalidraw/common";
+import { normalizeLink, KEYS } from "@albertBuenaventura/common";
 
 import {
   defaultGetElementLinkFromSelection,
   getLinkIdAndTypeFromSelection,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import type { ExcalidrawElement } from "@excalidraw/element/types";
+import type { ExcalidrawElement } from "@albertBuenaventura/element/types";
 
-import type { Scene } from "@excalidraw/element";
+import type { Scene } from "@albertBuenaventura/element";
 
 import { t } from "../i18n";
 import { getSelectedElements } from "../scene";

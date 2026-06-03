@@ -1,28 +1,28 @@
-import { pointFrom } from "@excalidraw/math";
+import { pointFrom } from "@albertBuenaventura/math";
 
 import {
   FONT_FAMILY,
   ORIG_ID,
   ROUNDNESS,
   isPrimitive,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import { Excalidraw, mutateElement } from "@excalidraw/excalidraw";
+import { Excalidraw, mutateElement } from "@albertBuenaventura/excalidraw";
 
-import { actionDuplicateSelection } from "@excalidraw/excalidraw/actions";
+import { actionDuplicateSelection } from "@albertBuenaventura/excalidraw/actions";
 
-import { API } from "@excalidraw/excalidraw/tests/helpers/api";
+import { API } from "@albertBuenaventura/excalidraw/tests/helpers/api";
 
-import { UI, Keyboard, Pointer } from "@excalidraw/excalidraw/tests/helpers/ui";
+import { UI, Keyboard, Pointer } from "@albertBuenaventura/excalidraw/tests/helpers/ui";
 
 import {
   act,
   assertElements,
   getCloneByOrigId,
   render,
-} from "@excalidraw/excalidraw/tests/test-utils";
+} from "@albertBuenaventura/excalidraw/tests/test-utils";
 
-import type { LocalPoint } from "@excalidraw/math";
+import type { LocalPoint } from "@albertBuenaventura/math";
 
 import { duplicateElement, duplicateElements } from "../src/duplicate";
 

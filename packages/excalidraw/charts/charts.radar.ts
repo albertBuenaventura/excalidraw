@@ -1,4 +1,4 @@
-import { pointFrom } from "@excalidraw/math";
+import { pointFrom } from "@albertBuenaventura/math";
 
 import {
   FONT_FAMILY,
@@ -6,15 +6,15 @@ import {
   getFontString,
   getLineHeight,
   ROUGHNESS,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
 import {
   measureText,
   newLinearElement,
   newTextElement,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import type { LocalPoint } from "@excalidraw/math";
+import type { LocalPoint } from "@albertBuenaventura/math";
 
 import {
   BAR_GAP,

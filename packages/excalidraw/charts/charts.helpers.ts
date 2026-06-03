@@ -1,4 +1,4 @@
-import { pointFrom } from "@excalidraw/math";
+import { pointFrom } from "@albertBuenaventura/math";
 
 import {
   COLOR_PALETTE,
@@ -11,7 +11,7 @@ import {
   getFontString,
   getLineHeight,
   ROUGHNESS,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
 import {
   getApproxMinLineWidth,
@@ -20,13 +20,13 @@ import {
   newLinearElement,
   newTextElement,
   wrapText,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
 import type {
   ChartType,
   ExcalidrawTextElement,
-} from "@excalidraw/element/types";
-import type { NonDeletedExcalidrawElement } from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
+import type { NonDeletedExcalidrawElement } from "@albertBuenaventura/element/types";
 
 import {
   BAR_GAP,

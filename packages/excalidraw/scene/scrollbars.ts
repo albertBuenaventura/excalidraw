@@ -1,6 +1,6 @@
-import { getGlobalCSSVariable } from "@excalidraw/common";
+import { getGlobalCSSVariable } from "@albertBuenaventura/common";
 
-import { getCommonBounds } from "@excalidraw/element";
+import { getCommonBounds } from "@albertBuenaventura/element";
 
 import { getLanguage } from "../i18n";
 

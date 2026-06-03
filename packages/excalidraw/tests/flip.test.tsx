@@ -1,14 +1,14 @@
 import { vi } from "vitest";
 
-import { ROUNDNESS, KEYS, arrayToMap, cloneJSON } from "@excalidraw/common";
+import { ROUNDNESS, KEYS, arrayToMap, cloneJSON } from "@albertBuenaventura/common";
 
-import { pointFrom, type Radians } from "@excalidraw/math";
+import { pointFrom, type Radians } from "@albertBuenaventura/math";
 
-import { getBoundTextElementPosition } from "@excalidraw/element";
-import { getElementAbsoluteCoords } from "@excalidraw/element";
-import { newLinearElement } from "@excalidraw/element";
+import { getBoundTextElementPosition } from "@albertBuenaventura/element";
+import { getElementAbsoluteCoords } from "@albertBuenaventura/element";
+import { newLinearElement } from "@albertBuenaventura/element";
 
-import type { LocalPoint } from "@excalidraw/math";
+import type { LocalPoint } from "@albertBuenaventura/math";
 
 import type {
   ExcalidrawElement,
@@ -16,7 +16,7 @@ import type {
   ExcalidrawLinearElement,
   ExcalidrawTextElementWithContainer,
   FileId,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import { actionFlipHorizontal, actionFlipVertical } from "../actions";
 import { createPasteEvent } from "../clipboard";

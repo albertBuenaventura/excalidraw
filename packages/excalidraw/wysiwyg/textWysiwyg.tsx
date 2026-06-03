@@ -11,18 +11,18 @@ import {
   MIME_TYPES,
   applyDarkModeFilter,
   isRTL,
-} from "@excalidraw/common";
-import { pointFrom, pointRotateRads, type Radians } from "@excalidraw/math";
+} from "@albertBuenaventura/common";
+import { pointFrom, pointRotateRads, type Radians } from "@albertBuenaventura/math";
 
 import {
   getTextFromElements,
   originalContainerCache,
   updateBoundElements,
   updateOriginalContainerCache,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { LinearElementEditor } from "@excalidraw/element";
-import { bumpVersion } from "@excalidraw/element";
+import { LinearElementEditor } from "@albertBuenaventura/element";
+import { bumpVersion } from "@albertBuenaventura/element";
 import {
   getBoundTextElementId,
   getContainerElement,
@@ -33,25 +33,25 @@ import {
   computeContainerDimensionForBoundText,
   computeBoundTextPosition,
   getBoundTextElement,
-} from "@excalidraw/element";
-import { getTextWidth } from "@excalidraw/element";
-import { getLineHeightInPx } from "@excalidraw/element";
-import { getLineWidth } from "@excalidraw/element";
-import { normalizeText } from "@excalidraw/element";
-import { wrapText } from "@excalidraw/element";
-import { getWrappedTextLines } from "@excalidraw/element";
+} from "@albertBuenaventura/element";
+import { getTextWidth } from "@albertBuenaventura/element";
+import { getLineHeightInPx } from "@albertBuenaventura/element";
+import { getLineWidth } from "@albertBuenaventura/element";
+import { normalizeText } from "@albertBuenaventura/element";
+import { wrapText } from "@albertBuenaventura/element";
+import { getWrappedTextLines } from "@albertBuenaventura/element";
 import {
   isArrowElement,
   isBoundToContainer,
   isTextElement,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
 import type {
   ExcalidrawElement,
   ExcalidrawLinearElement,
   ExcalidrawTextElementWithContainer,
   ExcalidrawTextElement,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import { actionSaveToActiveFile } from "../actions";
 

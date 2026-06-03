@@ -1,6 +1,6 @@
-import { KEYS } from "@excalidraw/common";
+import { KEYS } from "@albertBuenaventura/common";
 
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
 import { HelpIconThin } from "../components/icons";
 

@@ -1,4 +1,4 @@
-import { arrayToMap } from "@excalidraw/common";
+import { arrayToMap } from "@albertBuenaventura/common";
 
 import {
   validateOrderKey,

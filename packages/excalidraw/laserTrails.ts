@@ -1,4 +1,4 @@
-import { DEFAULT_LASER_COLOR, easeOut } from "@excalidraw/common";
+import { DEFAULT_LASER_COLOR, easeOut } from "@albertBuenaventura/common";
 
 import type { LaserPointerOptions } from "@excalidraw/laser-pointer";
 

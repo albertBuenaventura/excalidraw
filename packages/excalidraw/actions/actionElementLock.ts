@@ -1,14 +1,14 @@
-import { KEYS, arrayToMap, randomId } from "@excalidraw/common";
+import { KEYS, arrayToMap, randomId } from "@albertBuenaventura/common";
 
 import {
   elementsAreInSameGroup,
   newElementWith,
   selectGroupsFromGivenElements,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
-import type { ExcalidrawElement } from "@excalidraw/element/types";
+import type { ExcalidrawElement } from "@albertBuenaventura/element/types";
 
 import { LockedIcon, UnlockedIcon } from "../components/icons";
 

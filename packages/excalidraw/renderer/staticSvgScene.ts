@@ -10,37 +10,37 @@ import {
   getVerticalOffset,
   applyDarkModeFilter,
   MIME_TYPES,
-} from "@excalidraw/common";
-import { normalizeLink, toValidURL } from "@excalidraw/common";
-import { hashString } from "@excalidraw/element";
-import { getUncroppedWidthAndHeight } from "@excalidraw/element";
+} from "@albertBuenaventura/common";
+import { normalizeLink, toValidURL } from "@albertBuenaventura/common";
+import { hashString } from "@albertBuenaventura/element";
+import { getUncroppedWidthAndHeight } from "@albertBuenaventura/element";
 import {
   createPlaceholderEmbeddableLabel,
   getEmbedLink,
-} from "@excalidraw/element";
-import { LinearElementEditor } from "@excalidraw/element";
-import { getBoundTextElement, getContainerElement } from "@excalidraw/element";
-import { getLineHeightInPx } from "@excalidraw/element";
+} from "@albertBuenaventura/element";
+import { LinearElementEditor } from "@albertBuenaventura/element";
+import { getBoundTextElement, getContainerElement } from "@albertBuenaventura/element";
+import { getLineHeightInPx } from "@albertBuenaventura/element";
 import {
   isArrowElement,
   isIframeLikeElement,
   isInitializedImageElement,
   isTextElement,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { getContainingFrame } from "@excalidraw/element";
+import { getContainingFrame } from "@albertBuenaventura/element";
 
-import { getCornerRadius, isPathALoop } from "@excalidraw/element";
+import { getCornerRadius, isPathALoop } from "@albertBuenaventura/element";
 
-import { ShapeCache } from "@excalidraw/element";
+import { ShapeCache } from "@albertBuenaventura/element";
 
-import { getElementAbsoluteCoords } from "@excalidraw/element";
+import { getElementAbsoluteCoords } from "@albertBuenaventura/element";
 
 import type {
   ExcalidrawElement,
   ExcalidrawTextElementWithContainer,
   NonDeletedExcalidrawElement,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import type { RenderableElementsMap, SVGRenderConfig } from "../scene/types";
 import type { AppState, BinaryFiles } from "../types";

@@ -1,6 +1,6 @@
-import { CODES, KEYS } from "@excalidraw/common";
+import { CODES, KEYS } from "@albertBuenaventura/common";
 
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
 import { coffeeIcon } from "../components/icons";
 

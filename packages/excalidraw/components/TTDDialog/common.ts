@@ -2,16 +2,16 @@ import {
   DEFAULT_EXPORT_PADDING,
   EDITOR_LS_KEYS,
   THEME,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import { convertToExcalidrawElements } from "@excalidraw/element";
+import { convertToExcalidrawElements } from "@albertBuenaventura/element";
 
-import { exportToCanvas } from "@excalidraw/utils";
+import { exportToCanvas } from "@albertBuenaventura/utils";
 
 import type {
   NonDeletedExcalidrawElement,
   Theme,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import { EditorLocalStorage } from "../../data/EditorLocalStorage";
 

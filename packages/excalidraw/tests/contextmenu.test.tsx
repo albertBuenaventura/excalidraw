@@ -1,9 +1,9 @@
 import React from "react";
 import { vi } from "vitest";
 
-import { KEYS, reseed } from "@excalidraw/common";
+import { KEYS, reseed } from "@albertBuenaventura/common";
 
-import { setDateTimeForTests } from "@excalidraw/common";
+import { setDateTimeForTests } from "@albertBuenaventura/common";
 
 import { copiedStyles } from "../actions/actionStyles";
 import { Excalidraw } from "../index";

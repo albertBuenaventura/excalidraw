@@ -6,7 +6,7 @@ import {
   isShallowEqual,
   isTestEnv,
   randomInteger,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
 import type {
   ExcalidrawElement,
@@ -17,21 +17,21 @@ import type {
   Ordered,
   OrderedExcalidrawElement,
   SceneElementsMap,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import type {
   DTO,
   Mutable,
   SubtypeOf,
   ValueOf,
-} from "@excalidraw/common/utility-types";
+} from "@albertBuenaventura/common/utility-types";
 
 import type {
   AppState,
   ObservedAppState,
   ObservedElementsAppState,
   ObservedStandaloneAppState,
-} from "@excalidraw/excalidraw/types";
+} from "@albertBuenaventura/excalidraw/types";
 
 import { getObservedAppState } from "./store";
 

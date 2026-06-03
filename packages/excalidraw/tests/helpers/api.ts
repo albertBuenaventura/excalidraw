@@ -2,9 +2,9 @@ import fs from "fs";
 import path from "path";
 import util from "util";
 
-import { pointFrom, type LocalPoint, type Radians } from "@excalidraw/math";
+import { pointFrom, type LocalPoint, type Radians } from "@albertBuenaventura/math";
 
-import { DEFAULT_VERTICAL_ALIGN, ROUNDNESS, assertNever } from "@excalidraw/common";
+import { DEFAULT_VERTICAL_ALIGN, ROUNDNESS, assertNever } from "@albertBuenaventura/common";
 
 import {
   newArrowElement,
@@ -17,13 +17,13 @@ import {
   newLinearElement,
   newMagicFrameElement,
   newTextElement,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { isLinearElementType } from "@excalidraw/element";
-import { getSelectedElements } from "@excalidraw/element";
-import { selectGroupsForSelectedElements } from "@excalidraw/element";
+import { isLinearElementType } from "@albertBuenaventura/element";
+import { getSelectedElements } from "@albertBuenaventura/element";
+import { selectGroupsForSelectedElements } from "@albertBuenaventura/element";
 
-import { FONT_SIZES } from "@excalidraw/common";
+import { FONT_SIZES } from "@albertBuenaventura/common";
 
 import type {
   ExcalidrawElement,
@@ -39,9 +39,9 @@ import type {
   ExcalidrawElbowArrowElement,
   ExcalidrawArrowElement,
   FixedSegment,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
-import type { Mutable } from "@excalidraw/common/utility-types";
+import type { Mutable } from "@albertBuenaventura/common/utility-types";
 
 import { getMimeType } from "../../data/blob";
 import { createTestHook } from "../../components/App";

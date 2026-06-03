@@ -2,7 +2,7 @@ import {
   applyDarkModeFilter,
   COLOR_PALETTE,
   rgbToHex,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
 describe("COLOR_PALETTE", () => {
   it("color palette doesn't regress", () => {

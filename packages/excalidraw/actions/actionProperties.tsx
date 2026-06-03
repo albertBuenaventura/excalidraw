@@ -1,4 +1,4 @@
-import { pointFrom } from "@excalidraw/math";
+import { pointFrom } from "@albertBuenaventura/math";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -23,25 +23,25 @@ import {
   reduceToCommonValue,
   invariant,
   FONT_SIZES,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import { canBecomePolygon, getNonDeletedElements } from "@excalidraw/element";
+import { canBecomePolygon, getNonDeletedElements } from "@albertBuenaventura/element";
 
 import {
   bindBindingElement,
   calculateFixedPointForElbowArrowBinding,
   updateBoundElements,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { LinearElementEditor } from "@excalidraw/element";
+import { LinearElementEditor } from "@albertBuenaventura/element";
 
-import { newElementWith } from "@excalidraw/element";
-import { getArrowheadForPicker } from "@excalidraw/element";
+import { newElementWith } from "@albertBuenaventura/element";
+import { getArrowheadForPicker } from "@albertBuenaventura/element";
 
 import {
   getBoundTextElement,
   redrawTextBoundingBox,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
 import {
   isArrowElement,
@@ -51,19 +51,19 @@ import {
   isLineElement,
   isTextElement,
   isUsingAdaptiveRadius,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { hasStrokeColor } from "@excalidraw/element";
+import { hasStrokeColor } from "@albertBuenaventura/element";
 
 import {
   updateElbowArrowPoints,
   CaptureUpdateAction,
   toggleLinePolygonState,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { deriveStylesPanelMode } from "@excalidraw/common";
+import { deriveStylesPanelMode } from "@albertBuenaventura/common";
 
-import type { LocalPoint, Radians } from "@excalidraw/math";
+import type { LocalPoint, Radians } from "@albertBuenaventura/math";
 
 import type {
   Arrowhead,
@@ -75,11 +75,11 @@ import type {
   FontFamilyValues,
   TextAlign,
   VerticalAlign,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
-import type { Scene } from "@excalidraw/element";
+import type { Scene } from "@albertBuenaventura/element";
 
-import type { CaptureUpdateActionType } from "@excalidraw/element";
+import type { CaptureUpdateActionType } from "@albertBuenaventura/element";
 
 import { trackEvent } from "../analytics";
 import { RadioSelection } from "../components/RadioSelection";

@@ -5,9 +5,9 @@ import {
   CODES,
   KEYS,
   getLineHeight,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import { newElementWith } from "@excalidraw/element";
+import { newElementWith } from "@albertBuenaventura/element";
 
 import {
   hasBoundTextElement,
@@ -17,16 +17,16 @@ import {
   isArrowElement,
   isExcalidrawElement,
   isTextElement,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
 import {
   getBoundTextElement,
   redrawTextBoundingBox,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { CaptureUpdateAction } from "@excalidraw/element";
+import { CaptureUpdateAction } from "@albertBuenaventura/element";
 
-import type { ExcalidrawTextElement } from "@excalidraw/element/types";
+import type { ExcalidrawTextElement } from "@albertBuenaventura/element/types";
 
 import { paintIcon } from "../components/icons";
 

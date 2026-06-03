@@ -1,7 +1,7 @@
-import { getLineHeight } from "@excalidraw/common";
-import { API } from "@excalidraw/excalidraw/tests/helpers/api";
+import { getLineHeight } from "@albertBuenaventura/common";
+import { API } from "@albertBuenaventura/excalidraw/tests/helpers/api";
 
-import { FONT_FAMILY, TEXT_ALIGN, VERTICAL_ALIGN } from "@excalidraw/common";
+import { FONT_FAMILY, TEXT_ALIGN, VERTICAL_ALIGN } from "@albertBuenaventura/common";
 
 import {
   computeContainerDimensionForBoundText,

@@ -13,33 +13,33 @@ import {
   getFontString,
   toBrandedType,
   applyDarkModeFilter,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import { getCommonBounds, getElementAbsoluteCoords } from "@excalidraw/element";
+import { getCommonBounds, getElementAbsoluteCoords } from "@albertBuenaventura/element";
 
 import {
   getInitializedImageElements,
   updateImageCache,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { newElementWith } from "@excalidraw/element";
+import { newElementWith } from "@albertBuenaventura/element";
 
-import { isFrameLikeElement } from "@excalidraw/element";
+import { isFrameLikeElement } from "@albertBuenaventura/element";
 
 import {
   getElementsOverlappingFrame,
   getFrameLikeElements,
   getFrameLikeTitle,
   getRootElements,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { syncInvalidIndices } from "@excalidraw/element";
+import { syncInvalidIndices } from "@albertBuenaventura/element";
 
-import { type Mutable } from "@excalidraw/common/utility-types";
+import { type Mutable } from "@albertBuenaventura/common/utility-types";
 
-import { newTextElement } from "@excalidraw/element";
+import { newTextElement } from "@albertBuenaventura/element";
 
-import type { Bounds } from "@excalidraw/common";
+import type { Bounds } from "@albertBuenaventura/common";
 
 import type {
   ExcalidrawElement,
@@ -47,7 +47,7 @@ import type {
   ExcalidrawTextElement,
   NonDeletedExcalidrawElement,
   NonDeletedSceneElementsMap,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import { getDefaultAppState } from "../appState";
 import { base64ToString, decode, encode, stringToBase64 } from "../data/encode";

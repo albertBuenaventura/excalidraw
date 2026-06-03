@@ -2,28 +2,28 @@ import {
   type GlobalPoint,
   type LineSegment,
   pointFrom,
-} from "@excalidraw/math";
+} from "@albertBuenaventura/math";
 
-import { getElementLineSegments } from "@excalidraw/element";
-import { LinearElementEditor } from "@excalidraw/element";
+import { getElementLineSegments } from "@albertBuenaventura/element";
+import { LinearElementEditor } from "@albertBuenaventura/element";
 import {
   isFrameLikeElement,
   isLinearElement,
   isTextElement,
-} from "@excalidraw/element";
+} from "@albertBuenaventura/element";
 
-import { getFrameChildren } from "@excalidraw/element";
-import { selectGroupsForSelectedElements } from "@excalidraw/element";
+import { getFrameChildren } from "@albertBuenaventura/element";
+import { selectGroupsForSelectedElements } from "@albertBuenaventura/element";
 
-import { getContainerElement } from "@excalidraw/element";
+import { getContainerElement } from "@albertBuenaventura/element";
 
-import { arrayToMap, easeOut, isShallowEqual } from "@excalidraw/common";
+import { arrayToMap, easeOut, isShallowEqual } from "@albertBuenaventura/common";
 
 import type {
   ExcalidrawElement,
   ExcalidrawLinearElement,
   NonDeleted,
-} from "@excalidraw/element/types";
+} from "@albertBuenaventura/element/types";
 
 import { AnimatedTrail } from "../animatedTrail";
 

@@ -1,4 +1,4 @@
-import { KEYS } from "@excalidraw/common";
+import { KEYS } from "@albertBuenaventura/common";
 
 import { Excalidraw } from "../..";
 import { Keyboard } from "../../tests/helpers/ui";

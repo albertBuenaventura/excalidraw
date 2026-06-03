@@ -10,11 +10,11 @@ import {
   getFontString,
   getUpdatedTimestamp,
   getLineHeight,
-} from "@excalidraw/common";
+} from "@albertBuenaventura/common";
 
-import type { Radians } from "@excalidraw/math";
+import type { Radians } from "@albertBuenaventura/math";
 
-import type { MarkOptional, Merge } from "@excalidraw/common/utility-types";
+import type { MarkOptional, Merge } from "@albertBuenaventura/common/utility-types";
 
 import {
   getElementAbsoluteCoords,

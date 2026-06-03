@@ -1,4 +1,4 @@
-import { isDarwin } from "@excalidraw/common";
+import { isDarwin } from "@albertBuenaventura/common";
 
 import { t } from "./i18n";
 
