@@ -99,6 +99,21 @@ declare module "image-blob-reduce" {
   export = reduce;
 }
 
+declare module "tunnel-rat" {
+  import type { ReactNode } from "react";
+
+  type TunnelProps = {
+    children: ReactNode;
+  };
+
+  type Tunnel = {
+    In: ({ children }: TunnelProps) => null;
+    Out: (props: {}) => ReactNode;
+  };
+
+  export default function tunnel(): Tunnel;
+}
+
 interface CustomMatchers {
   toBeNonNaNNumber(): void;
   toCloselyEqualPoints(
