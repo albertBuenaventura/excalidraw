@@ -1,5 +1,5 @@
 {
-  "name": "@excalidraw/fractional-indexing",
+  "name": "@albertBuenaventura/fractional-indexing",
   "version": "3.3.0",
   "description": "Provides functions for generating ordering strings",
   "type": "module",
