@@ -24,6 +24,10 @@ function hasUnstagedChanges() {
     .some((line) => line[1] !== " ");
 }
 
+function isPatchAlreadyApplied(patchPath) {
+  return runGit(["apply", "--reverse", "--check", patchPath]).status === 0;
+}
+
 function getPatchPaths() {
   if (!fs.existsSync(patchesDir)) {
     return [];
@@ -38,8 +42,7 @@ function getPatchPaths() {
 
 function applyPatch(patchPath) {
   const patchName = path.basename(patchPath);
-  const alreadyApplied = runGit(["apply", "--reverse", "--check", patchPath]);
-  if (alreadyApplied.status === 0) {
+  if (isPatchAlreadyApplied(patchPath)) {
     console.log(`applyPatch: ${patchName} already applied`);
     return true;
   }
@@ -61,19 +64,24 @@ function applyPatch(patchPath) {
 }
 
 function main() {
-  if (hasUnstagedChanges()) {
-    console.error(
-      "applyPatch: unstaged changes detected; commit or stash them before applying patches",
-    );
-    process.exitCode = 1;
-    return;
-  }
-
   const patchPaths = getPatchPaths();
 
   if (!patchPaths.length) {
     console.log("applyPatch: no patch files found");
     return;
+  }
+
+  if (hasUnstagedChanges()) {
+    const unappliedPatch = patchPaths.find(
+      (patchPath) => !isPatchAlreadyApplied(patchPath),
+    );
+    if (unappliedPatch) {
+      console.error(
+        "applyPatch: unstaged changes detected; commit or stash them before applying patches",
+      );
+      process.exitCode = 1;
+      return;
+    }
   }
 
   for (const patchPath of patchPaths) {
