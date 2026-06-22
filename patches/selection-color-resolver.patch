@@ -1,0 +1,113 @@
+diff --git a/packages/excalidraw/components/App.tsx b/packages/excalidraw/components/App.tsx
+index 2b041624..fca6b377 100644
+--- a/packages/excalidraw/components/App.tsx
++++ b/packages/excalidraw/components/App.tsx
+@@ -2395,6 +2395,9 @@ class App extends React.Component<AppProps, AppState> {
+                             renderScrollbars={
+                               this.props.renderScrollbars === true
+                             }
++                            getSelectionColorForElement={
++                              this.props.getSelectionColorForElement
++                            }
+                             editorInterface={this.editorInterface}
+                             renderInteractiveSceneCallback={
+                               this.renderInteractiveSceneCallback
+diff --git a/packages/excalidraw/components/canvases/InteractiveCanvas.tsx b/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
+index dc7dcd9f..ee581c97 100644
+--- a/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
++++ b/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
+@@ -44,6 +44,7 @@ type InteractiveCanvasProps = {
+   scale: number;
+   appState: InteractiveCanvasAppState;
+   renderScrollbars: boolean;
++  getSelectionColorForElement?: InteractiveCanvasRenderConfig["getSelectionColorForElement"];
+   editorInterface: EditorInterface;
+   app: AppClassProperties;
+   renderInteractiveSceneCallback: (
+@@ -158,6 +159,7 @@ const InteractiveCanvas = (props: InteractiveCanvasProps) => {
+         remotePointerUsernames,
+         remotePointerUserStates,
+         selectionColor,
++        getSelectionColorForElement: props.getSelectionColorForElement,
+         renderScrollbars: props.renderScrollbars,
+         // NOTE not memoized on so we don't rerender on cursor move
+         lastViewportPosition: props.app.lastViewportPosition,
+@@ -287,7 +289,9 @@ const areEqual = (
+     prevProps.elementsMap !== nextProps.elementsMap ||
+     prevProps.visibleElements !== nextProps.visibleElements ||
+     prevProps.selectedElements !== nextProps.selectedElements ||
+-    prevProps.renderScrollbars !== nextProps.renderScrollbars
++    prevProps.renderScrollbars !== nextProps.renderScrollbars ||
++    prevProps.getSelectionColorForElement !==
++      nextProps.getSelectionColorForElement
+   ) {
+     return false;
+   }
+diff --git a/packages/excalidraw/renderer/interactiveScene.ts b/packages/excalidraw/renderer/interactiveScene.ts
+index 30cadb0e..1b885f19 100644
+--- a/packages/excalidraw/renderer/interactiveScene.ts
++++ b/packages/excalidraw/renderer/interactiveScene.ts
+@@ -1814,7 +1814,13 @@ const _renderInteractiveScene = ({
+             locallySelectedIds.has(element.id) &&
+             !isSelectedViaGroup(appState, element)
+           ) {
+-            selectionColors.push(selectionColor);
++            selectionColors.push(
++              renderConfig.getSelectionColorForElement?.(
++                element,
++                allElementsMap,
++                appState,
++              ) || selectionColor,
++            );
+           }
+           // remote users
+           if (remoteClients) {
+@@ -1869,7 +1875,7 @@ const _renderInteractiveScene = ({
+           y2,
+           selectionColors: groupElements.some((el) => el.locked)
+             ? ["#ced4da"]
+-            : ["#000"],
++            : [selectionColor],
+           dashed: true,
+           cx: x1 + (x2 - x1) / 2,
+           cy: y1 + (y2 - y1) / 2,
+diff --git a/packages/excalidraw/scene/types.ts b/packages/excalidraw/scene/types.ts
+index 59c421f8..332e2ea2 100644
+--- a/packages/excalidraw/scene/types.ts
++++ b/packages/excalidraw/scene/types.ts
+@@ -67,6 +67,11 @@ export type InteractiveCanvasRenderConfig = {
+   remotePointerUsernames: Map<SocketId, string>;
+   remotePointerButton: Map<SocketId, string | undefined>;
+   selectionColor: string;
++  getSelectionColorForElement?: (
++    element: NonDeletedExcalidrawElement,
++    allElementsMap: NonDeletedSceneElementsMap,
++    appState: InteractiveCanvasAppState,
++  ) => string | null | undefined;
+   lastViewportPosition: { x: number; y: number };
+   // extra options passed to the renderer
+   // ---------------------------------------------------------------------------
+diff --git a/packages/excalidraw/types.ts b/packages/excalidraw/types.ts
+index 605b5f83..9c3d608d 100644
+--- a/packages/excalidraw/types.ts
++++ b/packages/excalidraw/types.ts
+@@ -33,6 +33,7 @@ import type {
+   ExcalidrawNonSelectionElement,
+   BindMode,
+   ExcalidrawTextElement,
++  NonDeletedSceneElementsMap,
+ } from "@excalidraw/element/types";
+ 
+ import type {
+ @@ -686,6 +687,11 @@ export interface ExcalidrawProps {
+   aiEnabled?: boolean;
+   showDeprecatedFonts?: boolean;
+   renderScrollbars?: boolean;
++  getSelectionColorForElement?: (
++    element: NonDeletedExcalidrawElement,
++    allElementsMap: NonDeletedSceneElementsMap,
++    appState: InteractiveCanvasAppState,
++  ) => string | null | undefined;
+   /**
+    * Called before exporting to a file.
+    *
