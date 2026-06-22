@@ -21,6 +21,13 @@ function hasUnstagedChanges() {
   return status.stdout
     .split("\n")
     .filter(Boolean)
+    .filter((line) => {
+      const filePath = line.slice(3).trim();
+      return (
+        !filePath.startsWith("patches/") &&
+        filePath !== "scripts/applyPatch.js"
+      );
+    })
     .some((line) => line[1] !== " ");
 }
 

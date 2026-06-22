@@ -1,10 +1,13 @@
 diff --git a/packages/excalidraw/components/App.tsx b/packages/excalidraw/components/App.tsx
-index 2b041624..fca6b377 100644
+index 0194a0ed..9097c45c 100644
 --- a/packages/excalidraw/components/App.tsx
 +++ b/packages/excalidraw/components/App.tsx
-@@ -2395,6 +2395,9 @@ class App extends React.Component<AppProps, AppState> {
+@@ -2399,9 +2399,12 @@ class App extends React.Component<AppProps, AppState> {
                              renderScrollbars={
                                this.props.renderScrollbars === true
+                             }
+                             hideDefaultRotateHandle={
+                               this.props.hideDefaultRotateHandle === true
                              }
 +                            getSelectionColorForElement={
 +                              this.props.getSelectionColorForElement
@@ -13,7 +16,7 @@ index 2b041624..fca6b377 100644
                              renderInteractiveSceneCallback={
                                this.renderInteractiveSceneCallback
 diff --git a/packages/excalidraw/components/canvases/InteractiveCanvas.tsx b/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
-index dc7dcd9f..ee581c97 100644
+index 936e5655..892a0f20 100644
 --- a/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
 +++ b/packages/excalidraw/components/canvases/InteractiveCanvas.tsx
 @@ -44,6 +44,7 @@ type InteractiveCanvasProps = {
@@ -21,30 +24,50 @@ index dc7dcd9f..ee581c97 100644
    appState: InteractiveCanvasAppState;
    renderScrollbars: boolean;
 +  getSelectionColorForElement?: InteractiveCanvasRenderConfig["getSelectionColorForElement"];
+   hideDefaultRotateHandle: boolean;
    editorInterface: EditorInterface;
    app: AppClassProperties;
-   renderInteractiveSceneCallback: (
-@@ -158,6 +159,7 @@ const InteractiveCanvas = (props: InteractiveCanvasProps) => {
-         remotePointerUsernames,
+@@ -159,6 +160,7 @@ const InteractiveCanvas = (props: InteractiveCanvasProps) => {
          remotePointerUserStates,
          selectionColor,
-+        getSelectionColorForElement: props.getSelectionColorForElement,
          renderScrollbars: props.renderScrollbars,
++        getSelectionColorForElement: props.getSelectionColorForElement,
+         hideDefaultRotateHandle: props.hideDefaultRotateHandle,
          // NOTE not memoized on so we don't rerender on cursor move
          lastViewportPosition: props.app.lastViewportPosition,
-@@ -287,7 +289,9 @@ const areEqual = (
-     prevProps.elementsMap !== nextProps.elementsMap ||
+@@ -289,7 +291,9 @@ const areEqual = (
      prevProps.visibleElements !== nextProps.visibleElements ||
      prevProps.selectedElements !== nextProps.selectedElements ||
--    prevProps.renderScrollbars !== nextProps.renderScrollbars
-+    prevProps.renderScrollbars !== nextProps.renderScrollbars ||
+     prevProps.renderScrollbars !== nextProps.renderScrollbars ||
+-    prevProps.hideDefaultRotateHandle !== nextProps.hideDefaultRotateHandle
++    prevProps.hideDefaultRotateHandle !== nextProps.hideDefaultRotateHandle ||
 +    prevProps.getSelectionColorForElement !==
 +      nextProps.getSelectionColorForElement
    ) {
      return false;
    }
+diff --git a/packages/excalidraw/index.tsx b/packages/excalidraw/index.tsx
+index dfed2055..26d14177 100644
+--- a/packages/excalidraw/index.tsx
++++ b/packages/excalidraw/index.tsx
+@@ -104,6 +104,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
+     aiEnabled,
+     showDeprecatedFonts,
+     renderScrollbars,
++    getSelectionColorForElement,
+     hideDefaultRotateHandle,
+     imageOptions,
+   } = props;
+@@ -222,6 +223,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
+           aiEnabled={aiEnabled !== false}
+           showDeprecatedFonts={showDeprecatedFonts}
+           renderScrollbars={renderScrollbars}
++          getSelectionColorForElement={getSelectionColorForElement}
+           hideDefaultRotateHandle={hideDefaultRotateHandle}
+           imageOptions={normalizedImageOptions}
+         >
 diff --git a/packages/excalidraw/renderer/interactiveScene.ts b/packages/excalidraw/renderer/interactiveScene.ts
-index 30cadb0e..1b885f19 100644
+index 92560cea..44ce149e 100644
 --- a/packages/excalidraw/renderer/interactiveScene.ts
 +++ b/packages/excalidraw/renderer/interactiveScene.ts
 @@ -1814,7 +1814,13 @@ const _renderInteractiveScene = ({
@@ -72,7 +95,7 @@ index 30cadb0e..1b885f19 100644
            cx: x1 + (x2 - x1) / 2,
            cy: y1 + (y2 - y1) / 2,
 diff --git a/packages/excalidraw/scene/types.ts b/packages/excalidraw/scene/types.ts
-index 59c421f8..332e2ea2 100644
+index 41977b7b..760ed8f5 100644
 --- a/packages/excalidraw/scene/types.ts
 +++ b/packages/excalidraw/scene/types.ts
 @@ -67,6 +67,11 @@ export type InteractiveCanvasRenderConfig = {
@@ -88,7 +111,7 @@ index 59c421f8..332e2ea2 100644
    // extra options passed to the renderer
    // ---------------------------------------------------------------------------
 diff --git a/packages/excalidraw/types.ts b/packages/excalidraw/types.ts
-index 605b5f83..9c3d608d 100644
+index a93a8530..6705af1e 100644
 --- a/packages/excalidraw/types.ts
 +++ b/packages/excalidraw/types.ts
 @@ -33,6 +33,7 @@ import type {
@@ -99,15 +122,15 @@ index 605b5f83..9c3d608d 100644
  } from "@excalidraw/element/types";
  
  import type {
- @@ -686,6 +687,11 @@ export interface ExcalidrawProps {
+@@ -686,6 +687,11 @@ export interface ExcalidrawProps {
    aiEnabled?: boolean;
    showDeprecatedFonts?: boolean;
-   renderScrollbars?: boolean;
+   hideDefaultRotateHandle?: boolean;
 +  getSelectionColorForElement?: (
 +    element: NonDeletedExcalidrawElement,
 +    allElementsMap: NonDeletedSceneElementsMap,
 +    appState: InteractiveCanvasAppState,
 +  ) => string | null | undefined;
+   renderScrollbars?: boolean;
    /**
     * Called before exporting to a file.
-    *
