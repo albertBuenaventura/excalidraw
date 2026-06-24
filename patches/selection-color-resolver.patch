@@ -67,7 +67,7 @@ index dfed2055..26d14177 100644
            imageOptions={normalizedImageOptions}
          >
 diff --git a/packages/excalidraw/renderer/interactiveScene.ts b/packages/excalidraw/renderer/interactiveScene.ts
-index 92560cea..c7fd6d53 100644
+index 92560cea..c87466ac 100644
 --- a/packages/excalidraw/renderer/interactiveScene.ts
 +++ b/packages/excalidraw/renderer/interactiveScene.ts
 @@ -1508,8 +1508,8 @@ const renderTextBox = (
@@ -81,7 +81,15 @@ index 92560cea..c7fd6d53 100644
    context.strokeRect(shiftX, shiftY, width, height);
    context.restore();
  };
-@@ -1652,6 +1652,31 @@ const _renderInteractiveScene = ({
+@@ -1645,13 +1645,38 @@ const _renderInteractiveScene = ({
+     const textElement = allElementsMap.get(appState.editingTextElement.id) as
+       | ExcalidrawTextElement
+       | undefined;
+-    if (textElement && !textElement.autoResize) {
++    if (textElement) {
+       renderTextBox(
+         textElement,
+         context,
          appState,
          renderConfig.selectionColor,
        );
