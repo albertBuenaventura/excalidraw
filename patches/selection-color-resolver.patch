@@ -67,10 +67,53 @@ index dfed2055..26d14177 100644
            imageOptions={normalizedImageOptions}
          >
 diff --git a/packages/excalidraw/renderer/interactiveScene.ts b/packages/excalidraw/renderer/interactiveScene.ts
-index 92560cea..44ce149e 100644
+index 92560cea..c7fd6d53 100644
 --- a/packages/excalidraw/renderer/interactiveScene.ts
 +++ b/packages/excalidraw/renderer/interactiveScene.ts
-@@ -1814,7 +1814,13 @@ const _renderInteractiveScene = ({
+@@ -1508,8 +1508,8 @@ const renderTextBox = (
+   context.rotate(text.angle);
+   context.lineWidth = 1 / appState.zoom.value;
+   context.strokeStyle = selectionColor;
+-  context.globalAlpha = 0.5;
+-  context.setLineDash([6 / appState.zoom.value, 4 / appState.zoom.value]);
++  context.globalAlpha = 1.0;
++  context.setLineDash([]);
+   context.strokeRect(shiftX, shiftY, width, height);
+   context.restore();
+ };
+@@ -1652,6 +1652,31 @@ const _renderInteractiveScene = ({
+         appState,
+         renderConfig.selectionColor,
+       );
++
++      // Render transform handles for editing text element
++      if (!appState.viewModeEnabled && !appState.croppingElementId) {
++        context.save();
++        context.translate(appState.scrollX, appState.scrollY);
++        context.fillStyle = "#fff";
++        const transformHandles = getTransformHandles(
++          textElement,
++          appState.zoom,
++          elementsMap,
++          "mouse",
++          {
++            ...getOmitSidesForEditorInterface(editorInterface),
++            rotation: renderConfig.hideDefaultRotateHandle,
++          },
++        );
++        renderTransformHandles(
++          context,
++          renderConfig,
++          appState,
++          transformHandles,
++          textElement.angle,
++        );
++        context.restore();
++      }
+     }
+   }
+ 
+@@ -1814,7 +1839,13 @@ const _renderInteractiveScene = ({
              locallySelectedIds.has(element.id) &&
              !isSelectedViaGroup(appState, element)
            ) {
@@ -85,7 +128,7 @@ index 92560cea..44ce149e 100644
            }
            // remote users
            if (remoteClients) {
-@@ -1869,7 +1875,7 @@ const _renderInteractiveScene = ({
+@@ -1869,7 +1900,7 @@ const _renderInteractiveScene = ({
            y2,
            selectionColors: groupElements.some((el) => el.locked)
              ? ["#ced4da"]
@@ -94,6 +137,15 @@ index 92560cea..44ce149e 100644
            dashed: true,
            cx: x1 + (x2 - x1) / 2,
            cy: y1 + (y2 - y1) / 2,
+@@ -1906,8 +1937,6 @@ const _renderInteractiveScene = ({
+       if (
+         !appState.viewModeEnabled &&
+         showBoundingBox &&
+-        // do not show transform handles when text is being edited
+-        !isTextElement(appState.editingTextElement) &&
+         // do not show transform handles when image is being cropped
+         !appState.croppingElementId
+       ) {
 diff --git a/packages/excalidraw/scene/types.ts b/packages/excalidraw/scene/types.ts
 index 41977b7b..760ed8f5 100644
 --- a/packages/excalidraw/scene/types.ts
