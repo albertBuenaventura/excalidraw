@@ -67,7 +67,7 @@ index dfed2055..26d14177 100644
            imageOptions={normalizedImageOptions}
          >
 diff --git a/packages/excalidraw/renderer/interactiveScene.ts b/packages/excalidraw/renderer/interactiveScene.ts
-index 92560cea..c87466ac 100644
+index 92560cea..3c0e6412 100644
 --- a/packages/excalidraw/renderer/interactiveScene.ts
 +++ b/packages/excalidraw/renderer/interactiveScene.ts
 @@ -1508,8 +1508,8 @@ const renderTextBox = (
@@ -81,17 +81,26 @@ index 92560cea..c87466ac 100644
    context.strokeRect(shiftX, shiftY, width, height);
    context.restore();
  };
-@@ -1645,13 +1645,38 @@ const _renderInteractiveScene = ({
+@@ -1645,13 +1645,53 @@ const _renderInteractiveScene = ({
      const textElement = allElementsMap.get(appState.editingTextElement.id) as
        | ExcalidrawTextElement
        | undefined;
 -    if (textElement && !textElement.autoResize) {
 +    if (textElement) {
++      // Use custom color from getSelectionColorForElement if available
++      const customColor = renderConfig.getSelectionColorForElement?.(
++        textElement,
++        allElementsMap,
++        appState,
++      );
++      const textColor = customColor || renderConfig.selectionColor;
++
        renderTextBox(
          textElement,
          context,
          appState,
-         renderConfig.selectionColor,
+-        renderConfig.selectionColor,
++        textColor,
        );
 +
 +      // Render transform handles for editing text element
@@ -109,9 +118,16 @@ index 92560cea..c87466ac 100644
 +            rotation: renderConfig.hideDefaultRotateHandle,
 +          },
 +        );
++
++        // Create a custom renderConfig with the text color for transform handles
++        const customRenderConfig = {
++          ...renderConfig,
++          selectionColor: textColor,
++        };
++
 +        renderTransformHandles(
 +          context,
-+          renderConfig,
++          customRenderConfig,
 +          appState,
 +          transformHandles,
 +          textElement.angle,
@@ -121,7 +137,7 @@ index 92560cea..c87466ac 100644
      }
    }
  
-@@ -1814,7 +1839,13 @@ const _renderInteractiveScene = ({
+@@ -1814,7 +1854,13 @@ const _renderInteractiveScene = ({
              locallySelectedIds.has(element.id) &&
              !isSelectedViaGroup(appState, element)
            ) {
@@ -136,7 +152,7 @@ index 92560cea..c87466ac 100644
            }
            // remote users
            if (remoteClients) {
-@@ -1869,7 +1900,7 @@ const _renderInteractiveScene = ({
+@@ -1869,7 +1915,7 @@ const _renderInteractiveScene = ({
            y2,
            selectionColors: groupElements.some((el) => el.locked)
              ? ["#ced4da"]
@@ -145,7 +161,7 @@ index 92560cea..c87466ac 100644
            dashed: true,
            cx: x1 + (x2 - x1) / 2,
            cy: y1 + (y2 - y1) / 2,
-@@ -1906,8 +1937,6 @@ const _renderInteractiveScene = ({
+@@ -1906,8 +1952,6 @@ const _renderInteractiveScene = ({
        if (
          !appState.viewModeEnabled &&
          showBoundingBox &&
